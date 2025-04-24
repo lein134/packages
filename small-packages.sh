@@ -12,7 +12,6 @@ SRC_DIR="$WORKSPACE/source_content"
 TARGET_DIR="$WORKSPACE/target_repo"
 
 CLONE_PATHS=(
-    "luci-app-argon-config"
     "luci-theme-argon"
 )
 
