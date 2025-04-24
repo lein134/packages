@@ -13,6 +13,7 @@ TARGET_DIR="$WORKSPACE/target_repo"
 
 CLONE_PATHS=(
     "luci-theme-argon"
+    "chinadns-ng"
 )
 
 # ===================== 智能克隆函数 =====================
