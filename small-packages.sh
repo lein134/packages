@@ -56,9 +56,7 @@ main() {
         echo "::error::克隆失败"
         exit 10
     fi
-    cd "$WORKSPACE"
-    rm -rf LICENSE
-    rm -rf README.md
+
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
     rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/"
@@ -66,6 +64,8 @@ main() {
     # 提交变更
     (
         cd "$TARGET_DIR"
+        rm -rf LICENSE
+        rm -rf README.md
         git config user.name "Auto Sync"
         git config user.email "auto@github.com"
         git add .
