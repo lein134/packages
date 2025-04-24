@@ -2,7 +2,7 @@ name: Auto Sync
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 每天UTC时间3点
+    - cron: '0 3 * * *'  # UTC时间每天3点
   workflow_dispatch:
 
 jobs:
