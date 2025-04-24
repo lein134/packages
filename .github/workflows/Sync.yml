@@ -22,8 +22,8 @@ jobs:
         env:
           TARGET_PAT: ${{ secrets.TARGET_PAT }}  # 目标账户PAT
         run: |
-          chmod +x clone.sh
-          ./clone.sh
+          chmod +x small-packages.sh
+          ./small-packages.sh
 
       - name: Upload Logs
         if: always()  # 确保失败时也能上传日志
