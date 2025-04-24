@@ -6,60 +6,55 @@ SOURCE_REPO="https://github.com/kenzok8/small-package.git"
 TARGET_USER="RayleanB"
 TARGET_REPO_NAME="packages"
 
-# ===================== 核心修复点 =====================
-WORKSPACE="sync_workspace"  # 固定工作目录
-SRC_DIR="source_content"    # 源内容目录
-TARGET_DIR="target_repo"    # 目标仓库目录
+# ===================== 路径配置 =====================
+WORKSPACE="$PWD/sync_workspace"  # 使用绝对路径
+SRC_DIR="$WORKSPACE/source_content"
+TARGET_DIR="$WORKSPACE/target_repo"
 
 CLONE_FOLDERS=(
     "luci-app-argon-config"
     "luci-theme-argon"
 )
 
-# ===================== 路径清理函数 =====================
+# ===================== 增强路径处理 =====================
 clean_workspace() {
+    echo "🧹 清理工作目录..."
     rm -rf "$WORKSPACE"
     mkdir -p "$WORKSPACE"
-    cd "$WORKSPACE"
+    echo "工作目录: $WORKSPACE"
 }
 
-# ===================== 安全同步函数 =====================
-safe_sync() {
-    # 确保在WORKSPACE目录下操作
-    cd "$WORKSPACE"
-    
-    # 精确同步到目标仓库根目录
-    rsync -av --delete \
-          --exclude='.git' \
-          --exclude='.github' \
-          --exclude='target_repo' \  # 关键修复：排除自身目录
-          "$SRC_DIR/" "$TARGET_DIR/"
+safe_clone() {
+    local repo_url="$1" clone_dir="$2"
+    echo "🔧 正在克隆仓库到: $clone_dir"
+    git clone --depth 1 --filter=blob:none --sparse "$repo_url" "$clone_dir"
 }
 
 # ===================== 主流程 =====================
 main() {
+    # 清理并初始化目录
     clean_workspace
     
-    # 克隆源仓库内容
-    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR"
-    cd "$SRC_DIR"
-    git sparse-checkout set "${CLONE_FOLDERS[@]}"
-    cd ..
+    # 克隆源仓库
+    safe_clone "$SOURCE_REPO" "$SRC_DIR"
+    (cd "$SRC_DIR" && git sparse-checkout set "${CLONE_FOLDERS[@]}")
     
     # 克隆目标仓库
-    git clone "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
+    safe_clone "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
     
-    # 执行同步
-    if ! safe_sync; then
-        echo "::error::同步失败"
-        exit 20
-    fi
+    # 同步文件
+    echo "🔄 开始同步文件..."
+    rsync -av --delete \
+          --exclude='.git' \
+          --exclude='.github' \
+          "$SRC_DIR/" "$TARGET_DIR/"
     
     # 提交变更
-    cd "$TARGET_DIR"
-    git add .
-    git commit -m "Sync: $(date +'%Y-%m-%d %H:%M:%S')"
-    git push origin main
+    (cd "$TARGET_DIR" && {
+        git add . 
+        git commit -m "Sync: $(date +'%Y-%m-%d %H:%M:%S')"
+        git push origin main
+    })
 }
 
 # ===================== 执行入口 =====================
@@ -67,4 +62,3 @@ trap "echo '❌ 进程被中断'; exit 130" INT TERM
 main
 trap - EXIT
 echo "✅ 同步成功完成"
-
