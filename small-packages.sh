@@ -56,7 +56,8 @@ main() {
         echo "::error::克隆失败"
         exit 10
     fi
-
+    cd "$WORKSPACE"
+    rm -rf LICENSE & README.md
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
     rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/"
