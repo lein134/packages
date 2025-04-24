@@ -3,8 +3,8 @@ set -euo pipefail
 
 # ===================== 用户配置区 =====================
 SOURCE_REPO="https://github.com/kenzok8/small-package.git"  # 源仓库地址
-TARGET_USER="your-target-username"                          # 目标账户用户名
-TARGET_REPO_NAME="your-target-repo"                         # 目标仓库名称
+TARGET_USER="RayleanB"                          # 目标账户用户名
+TARGET_REPO_NAME="packages"                         # 目标仓库名称
 TARGET_TOKEN="${TARGET_PAT}"                    # 从Secrets读取PAT
 
 # 要克隆的文件夹数组（每行一个，支持#注释）
