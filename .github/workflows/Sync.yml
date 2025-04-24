@@ -1,37 +1,44 @@
-name: Sync
+name: Cross-Account Sync
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 每天UTC时间3点（北京时间11点）
-  workflow_dispatch:     # 手动触发选项
+    - cron: '0 3 * * *'  # 每天UTC3点（北京时间11点）
+  workflow_dispatch:     # 手动触发
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
-      TZ: Asia/Shanghai  # 设置时区
+      TZ: Asia/Shanghai
     
     steps:
-      - name: Checkout Source
+      - name: 检出源代码
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: none  # 禁用稀疏检出
-          fetch-depth: 0
-
-      - name: Run Sync Script
+        
+      - name: 验证权限
+        run: |
+          if [ -z "$TARGET_PAT" ]; then
+            echo "::error::未检测到TARGET_PAT"
+            exit 1
+          fi
+          echo "✅ 权限验证通过"
         env:
-          TARGET_PAT: ${{ secrets.TARGET_PAT }}  # 目标账户PAT
+          TARGET_PAT: ${{ secrets.TARGET_PAT }}
+          
+      - name: 执行同步脚本
+        env:
+          TARGET_PAT: ${{ secrets.TARGET_PAT }}
         run: |
           chmod +x small-packages.sh
-          ./small-packages.sh
-
-      - name: Upload Logs
-        if: always()  # 确保失败时也能上传日志
-        uses: actions/upload-artifact@v4  # 升级到最新稳定版
+          ./small-packages.sh 2>&1 | tee sync.log
+          
+      - name: 上传日志
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: sync-logs
           path: |
-            sync_temp/target_repo/.git/logs/HEAD
-            sync_temp/target_repo/.git/logs/refs/**
-          retention-days: 3  # 自动清理旧日志
-          compression-level: 9  # 最高压缩率
+            sync.log
+            sync_temp/target_repo/.git/logs/*
+          retention-days: 3
