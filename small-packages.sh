@@ -1,10 +1,11 @@
 #!/bin/bash
-set -exo pipefail
+set -euo pipefail
 
 # ===================== 用户配置区 =====================
-SOURCE_REPO="https://github.com/kenzok8/small-package.git"  # 源仓库地址
-TARGET_USER="RayleanB"                       # 目标账户用户名
-TARGET_REPO_NAME="packages"                         # 目标仓库名称
+SOURCE_REPO="https://github.com/kenzok8/small-package.git"
+TARGET_USER="RayleanB"
+TARGET_REPO_NAME="packages"
+
 # ===================== 核心修复点 =====================
 WORKSPACE="sync_workspace"  # 固定工作目录
 SRC_DIR="source_content"    # 源内容目录
@@ -66,3 +67,4 @@ trap "echo '❌ 进程被中断'; exit 130" INT TERM
 main
 trap - EXIT
 echo "✅ 同步成功完成"
+
