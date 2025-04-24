@@ -12,8 +12,19 @@ SRC_DIR="$WORKSPACE/source_content"
 TARGET_DIR="$WORKSPACE/target_repo"
 
 CLONE_PATHS=(
-    "luci-theme-argon"
-    "chinadns-ng"
+    "luci-app-openclash"
+    "iptvhelper"
+    "luci-app-iptvhelper"
+    "luci-app-timecontrol"
+    "cdnspeedtest"
+    "luci-app-cloudflarespeedtest"
+    "luci-app-dnsfilter"
+    "luci-app-fileassistant"
+    "luci-app-wolplus"
+    "luci-app-wechatpush"
+    "luci-app-poweroff"
+    "luci-app-amlogic"
+    "luci-app-argon-config"
 )
 
 # ===================== 智能克隆函数 =====================
