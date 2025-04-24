@@ -20,8 +20,8 @@ jobs:
         env:
           TARGET_PAT: ${{ secrets.TARGET_PAT }}
         run: |
-          chmod +x clone.sh
-          ./clone.sh
+          chmod +x small-packages.sh
+          ./small-packages.sh
           
       - name: Clean Workspace
         if: always()
