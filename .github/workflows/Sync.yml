@@ -19,8 +19,8 @@ jobs:
         env:
           TARGET_PAT: ${{ secrets.TARGET_PAT }}
         run: |
-          chmod +x small-packages.sh
-          ./small-packages.sh 2>&1 | tee sync.log
+          chmod +x 1.sh
+          ./1.sh 2>&1 | tee sync.log
 
       - name: Upload Logs
         if: always()
