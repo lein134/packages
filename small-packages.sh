@@ -14,7 +14,6 @@ TARGET_DIR="$WORKSPACE/target_repo"
 CLONE_PATHS=(
     "luci-app-argon-config"
     "luci-theme-argon"
-    "luci-theme-argon/root"  # 显式包含嵌套路径
 )
 
 # ===================== 智能克隆函数 =====================
