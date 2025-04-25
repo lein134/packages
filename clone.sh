@@ -70,7 +70,7 @@ main() {
         exit 10
     fi
     echo "🔍 开始稀疏克隆..."
-    git_sparse_clone master "https://github.com/djylb/nps-openwrt" ""$SRC_DIR"/18.06/nps-openwrt" luci-app-npc luci-app-nps npc nps
+    git_sparse_clone main "https://github.com/djylb/nps-openwrt" ""$SRC_DIR"/18.06/nps-openwrt" luci-app-npc luci-app-nps npc nps
     
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
