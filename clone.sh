@@ -23,8 +23,6 @@ CLONE_PATHS=(
     "luci-app-wolplus"
     "luci-app-wechatpush"
     "luci-app-poweroff"
-    "luci-app-amlogic"
-    "luci-app-argon-config"
     "istoreenhance"
     "luci-app-istoredup"
     "luci-app-istoreenhance"
@@ -46,9 +44,9 @@ git_smart_clone() {
     git config --global advice.updateSparsePath false
     
     # 稀疏克隆核心逻辑
-    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR/18.06/small-packages"
+    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR"
     (
-        cd "$SRC_DIR/18.06/small-packages"
+        cd "$SRC_DIR"
         git sparse-checkout init --cone
         git sparse-checkout set "${CLONE_PATHS[@]}" 2>/dev/null
         
@@ -97,10 +95,10 @@ main() {
         exit 10
     fi
     echo "🔍 开始稀疏克隆..."
-    git_sparse_clone main "https://github.com/djylb/nps-openwrt" "$SRC_DIR/18.06/nps-openwrt" luci-app-npc luci-app-nps npc nps
-    git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "$SRC_DIR/18.06/lucky-wrt" luci-app-lucky lucky
-    git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" "$SRC_DIR/18.06/passwall" luci-app-passwall
-    git clone --depth 1 "https://github.com/xiaorouji/openwrt-passwall-packages" "$SRC_DIR/18.06/openwrt-passwall-packages" && rm -rf "$SRC_DIR/18.06/openwrt-passwall-packages/.github"
+    #git_sparse_clone main "https://github.com/djylb/nps-openwrt" "$SRC_DIR/nps" luci-app-npc luci-app-nps npc nps
+    #git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "$SRC_DIR/18.06/lucky-wrt" luci-app-lucky lucky
+    #git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" "$SRC_DIR/18.06/passwall" luci-app-passwall
+    #git clone --depth 1 "https://github.com/xiaorouji/openwrt-passwall-packages" "$SRC_DIR/18.06/openwrt-passwall-packages" && rm -rf "$SRC_DIR/18.06/openwrt-passwall-packages/.github"
     
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
