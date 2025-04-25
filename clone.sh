@@ -89,7 +89,7 @@ main() {
     git clone --depth 1 "https://github.com/xiaorouji/openwrt-passwall-packages" "$SRC_DIR/18.06/openwrt-passwall-packages" && \
     rm -rf "$SRC_DIR/18.06/openwrt-passwall-packages/.github" && \
     mv "$SRC_DIR/18.06/openwrt-passwall-packages/*" "$SRC_DIR/18.06" && \
-    rm rf "$SRC_DIR/18.06/openwrt-passwall-packages"
+    rm -rf "$SRC_DIR/18.06/openwrt-passwall-packages"
     git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" "$SRC_DIR/18.06/passwall" luci-app-passwall
     
     # 同步到目标仓库
