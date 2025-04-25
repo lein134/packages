@@ -65,9 +65,11 @@ main() {
     
     # 提交变更
     (
-        cd "$TARGET_DIR"
+        cd "$TARGET_DIR/18.06/small-packages"
         rm -rf LICENSE
         rm -rf README.md
+        cd ..
+        cd ..
         git config user.name "Auto Sync"
         git config user.email "auto@github.com"
         git add .
