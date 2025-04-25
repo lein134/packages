@@ -65,7 +65,7 @@ function git_sparse_clone1() {
   git sparse-checkout init --cone
   # 排除指定目录
   for exclude_dir in "$@"; do
-    git sparse-checkout set "!$exclude_dir"
+    git sparse-checkout set --skip-checks "!$exclude_dir"
   done
   mv -n * ../
   cd ..
