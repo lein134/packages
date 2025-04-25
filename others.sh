@@ -33,7 +33,7 @@ git_smart_clone() {
     git config --global advice.updateSparsePath false
     
     # 稀疏克隆核心逻辑
-    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR"
+    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR/18.06/small-packages"
     (
         cd "$SRC_DIR"
         git sparse-checkout init --cone
@@ -43,6 +43,8 @@ git_smart_clone() {
         for path in "${CLONE_PATHS[@]}"; do
             [ -e "$path" ] || echo "::warning::路径不存在: $path"
         done
+        rm -rf LICENSE
+        rm -rf README.md
     )
 }
 
@@ -68,21 +70,15 @@ main() {
         exit 10
     fi
     echo "🔍 开始稀疏克隆..."
-    git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" ""$SRC_DIR"/x-wrt" natflow
+    git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" ""$SRC_DIR"/18.06/x-wrt" natflow
 
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
-    # 将文件从源目录同步到目标仓库中的 指定文件夹 文件夹
-    mkdir -p "$TARGET_DIR/18.06/small-packages/"
-    rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/18.06/small-packages/"
+    rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR"
     
     # 提交变更
     (
-        cd "$TARGET_DIR/18.06/small-packages"
-        rm -rf LICENSE
-        rm -rf README.md
-        cd ..
-        cd ..
+        cd "$TARGET_DIR"
         git config user.name "Auto Sync"
         git config user.email "auto@github.com"
         git add .
