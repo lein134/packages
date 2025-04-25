@@ -87,6 +87,7 @@ main() {
     git_sparse_clone main "https://github.com/djylb/nps-openwrt" "$SRC_DIR/18.06/nps-openwrt" luci-app-npc luci-app-nps npc nps
     git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "$SRC_DIR/18.06/lucky-wrt" luci-app-lucky lucky
     git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" "$SRC_DIR/18.06/passwall" luci-app-passwall
+    git clone --depth 1 "https://github.com/xiaorouji/openwrt-passwall-packages" "$SRC_DIR/18.06/openwrt-passwall-packages" && rm -rf "$SRC_DIR/18.06/openwrt-passwall-packages/.github"
     
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
