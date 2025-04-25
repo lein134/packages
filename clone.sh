@@ -25,6 +25,19 @@ CLONE_PATHS=(
     "luci-app-poweroff"
     "luci-app-amlogic"
     "luci-app-argon-config"
+    "istoreenhance"
+    "luci-app-istoredup"
+    "luci-app-istoreenhance"
+    "luci-app-istorego"
+    "luci-app-istorepanel"
+    "luci-app-istorex"
+    "luci-app-quickstart"
+    "luci-app-store"
+    "luci-lib-taskd"
+    "luci-lib-xterm"
+    "quickstart"
+    "taskd"
+    "vmease"
 )
 
 # ===================== 智能克隆函数 =====================
