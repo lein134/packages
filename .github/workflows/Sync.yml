@@ -19,8 +19,6 @@ jobs:
         env:
           TARGET_PAT: ${{ secrets.TARGET_PAT }}
         run: |
-          chmod +x small-packages.sh
-          ./small-packages.sh 2>&1 | tee sync.log
           chmod +x others.sh
           ./others.sh 2>&1 | tee sync.log
 
