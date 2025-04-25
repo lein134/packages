@@ -33,11 +33,9 @@ git_smart_clone() {
     git config --global advice.updateSparsePath false
     
     # 稀疏克隆核心逻辑
-    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR"
+    git clone --depth 1 --filter=blob:none --sparse "$SOURCE_REPO" "$SRC_DIR/18.06/small-packages"
     (
-        cd "$SRC_DIR"
-        mkdir -p 18.06/small-packages
-        cd 18.06/small-packages
+        cd "$SRC_DIR/18.06/small-packages"
         git sparse-checkout init --cone
         git sparse-checkout set "${CLONE_PATHS[@]}" 2>/dev/null
         
