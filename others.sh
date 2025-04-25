@@ -37,15 +37,13 @@ main() {
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
     # 将文件从源目录同步到目标仓库中的 指定文件夹 文件夹
-    mkdir -p "$TARGET_DIR/18.06/small-packages/"
-    rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/18.06/small-packages/"
+    rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/18.06/"
     
     # 提交变更
     (
-        cd "$TARGET_DIR/18.06/small-packages"
+        cd "$TARGET_DIR/18.06"
         rm -rf LICENSE
         rm -rf README.md
-        cd ..
         cd ..
         git config user.name "Auto Sync"
         git config user.email "auto@github.com"
