@@ -46,7 +46,7 @@ git_smart_clone() {
     )
 }
 
-git_sparse_clone() {
+function git_sparse_clone() {
   branch="$1" rurl="$2" localdir="$3" && shift 3
   git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
   cd $localdir
@@ -67,7 +67,7 @@ main() {
         echo "::error::克隆失败"
         exit 10
     fi
-
+    echo "🔍 开始稀疏克隆..."
     git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow
 
     # 同步到目标仓库
