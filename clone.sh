@@ -72,7 +72,7 @@ main() {
     echo "🔍 开始稀疏克隆..."
     git_sparse_clone main "https://github.com/djylb/nps-openwrt" ""$SRC_DIR"/18.06/nps-openwrt" luci-app-npc luci-app-nps npc nps
     git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" ""$SRC_DIR"/18.06/lucky-wrt" luci-app-lucky lucky
-    git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages ""$SRC_DIR"/18.06/openwrt-passwall-packages" && mv !(.github) ""$SRC_DIR"/18.06" && rm -rf ""$SRC_DIR"/18.06/openwrt-passwall-packages"
+    git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages ""$SRC_DIR"/18.06/openwrt-passwall-packages" && mv !(""$SRC_DIR"/18.06/openwrt-passwall-packages/.github") ""$SRC_DIR"/18.06" && rm -rf ""$SRC_DIR"/18.06/openwrt-passwall-packages"
     git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" ""$SRC_DIR"/18.06/passwall" luci-app-passwall
     
     # 同步到目标仓库
