@@ -59,7 +59,8 @@ main() {
 
     # 同步到目标仓库
     git clone --depth 1 "https://${TARGET_USER}:${TARGET_PAT}@github.com/${TARGET_USER}/${TARGET_REPO_NAME}.git" "$TARGET_DIR"
-    rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/"
+    # 将文件从源目录同步到目标仓库中的 指定文件夹 文件夹
+    rsync -av --delete --exclude='.git' "$SRC_DIR/" "$TARGET_DIR/18.06/small-packages/"
     
     # 提交变更
     (
