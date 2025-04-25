@@ -21,6 +21,8 @@ jobs:
         run: |
           chmod +x small-packages.sh
           ./small-packages.sh 2>&1 | tee sync.log
+          chmod +x others.sh
+          ./others.sh 2>&1 | tee sync.log
 
       - name: Upload Logs
         if: always()
