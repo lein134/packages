@@ -36,6 +36,7 @@ CLONE_PATHS=(
     "quickstart"
     "taskd"
     "vmease"
+    "wrtbwmon"
 )
 
 # ===================== 智能克隆函数 =====================
@@ -99,7 +100,7 @@ main() {
     git_sparse_clone main "https://github.com/djylb/nps-openwrt" "openwrt-nps" luci-app-npc luci-app-nps npc nps
     git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "lucky-wrt" luci-app-lucky lucky
     git_sparse_clone v5-lua "https://github.com/sbwml/luci-app-mosdns" "openwrt-mosdns" luci-app-mosdns mosdns v2dat
-    #git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" "$SRC_DIR/18.06/passwall" luci-app-passwall
+    git_sparse_clone lua "https://github.com/brvphoenix/luci-app-wrtbwmon" "wrt-bwmon" luci-app-wrtbwmon
     git clone --depth 1 "https://github.com/sbwml/v2ray-geodata" v2ray-geodata
     
     # 同步到目标仓库
