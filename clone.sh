@@ -96,7 +96,7 @@ main() {
     fi
     echo "🔍 开始稀疏克隆..."
     cd "$SRC_DIR"
-    git_sparse_clone main "https://github.com/djylb/nps-openwrt" "nps" luci-app-npc luci-app-nps npc nps
+    git_sparse_clone main "https://github.com/djylb/nps-openwrt" "openwrt-nps" luci-app-npc luci-app-nps npc nps
     git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "lucky-wrt" luci-app-lucky lucky
     #git_sparse_clone main "https://github.com/xiaorouji/openwrt-passwall" "$SRC_DIR/18.06/passwall" luci-app-passwall
     #git clone --depth 1 "https://github.com/xiaorouji/openwrt-passwall-packages" "$SRC_DIR/18.06/openwrt-passwall-packages" && rm -rf "$SRC_DIR/18.06/openwrt-passwall-packages/.github"
