@@ -72,16 +72,13 @@ function git_sparse_clone() {
   }
 function git_sparse_clone1() {
   branch="$1" rurl="$2" localdir="$3" && shift 3
-  git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$rurl" "$localdir"
-  cd "$localdir"
-  git sparse-checkout init --cone
-  # 排除指定目录
-  for exclude_dir in "$@"; do
-    git sparse-checkout set --skip-checks "!$exclude_dir"
-  done
-  mv -n * ../
+  git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+  cd $localdir
+  git sparse-checkout init
+  git sparse-checkout set $@
+  mv -n $@ ../
   cd ..
-  rm -rf "$localdir"
+  rm -rf $localdir
 }
 
 
@@ -101,7 +98,7 @@ main() {
     git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "lucky-wrt" luci-app-lucky lucky
     git_sparse_clone v5-lua "https://github.com/sbwml/luci-app-mosdns" "openwrt-mosdns" luci-app-mosdns mosdns v2dat
     git_sparse_clone lua "https://github.com/brvphoenix/luci-app-wrtbwmon" "wrt-bwmon" luci-app-wrtbwmon
-    git_sparse_clone master "https://github.com/kuoruan/openwrt-frp" "frp-0.57/frp" Makefile
+    git_sparse_clone1 master "https://github.com/kuoruan/openwrt-frp" "frp-0.57/frp" Makefile
     git clone --depth 1 "https://github.com/sbwml/v2ray-geodata" v2ray-geodata
     
     # 同步到目标仓库
