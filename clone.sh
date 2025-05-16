@@ -98,7 +98,7 @@ main() {
     git_sparse_clone main "https://github.com/gdy666/luci-app-lucky" "lucky-wrt" luci-app-lucky lucky
     git_sparse_clone v5-lua "https://github.com/sbwml/luci-app-mosdns" "openwrt-mosdns" luci-app-mosdns mosdns v2dat
     git_sparse_clone lua "https://github.com/brvphoenix/luci-app-wrtbwmon" "wrt-bwmon" luci-app-wrtbwmon
-    git_sparse_clone --skip-checks master "https://github.com/kuoruan/openwrt-frp" "frp-0.57/frp" Makefile
+    git_sparse_clone1 master "https://github.com/kuoruan/openwrt-frp" "frp-0.57/frp" Makefile
     git clone --depth 1 "https://github.com/sbwml/v2ray-geodata" v2ray-geodata
     
     # 同步到目标仓库
